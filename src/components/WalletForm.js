@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../redux/actions';
+import { fetchCurrencies, sendExpense } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    value: 0,
+    value: '',
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
@@ -19,6 +19,19 @@ class WalletForm extends Component {
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleSubmit = () => {
+    const { dispatchAddExpense, wallet } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    dispatchAddExpense({ value, description, currency, method, tag }, wallet);
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   };
 
   render() {
@@ -94,6 +107,14 @@ class WalletForm extends Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
+          <button
+            type="button"
+            onClick={ this.handleSubmit }
+          >
+            Adicionar despesa
+
+          </button>
+
         </form>
       </div>
     );
@@ -106,6 +127,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchGetCurrencies: () => dispatch(fetchCurrencies()),
+  dispatchAddExpense: (expense, wallet) => dispatch(sendExpense(expense, wallet)),
 });
 
 WalletForm.propTypes = {
@@ -113,6 +135,7 @@ WalletForm.propTypes = {
     currencies: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   dispatchGetCurrencies: PropTypes.func.isRequired,
+  dispatchAddExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
