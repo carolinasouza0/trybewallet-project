@@ -34,3 +34,8 @@ export const sendExpense = (expense, wallet) => async (dispatch) => {
   const myExp = { id: lengthExp, ...expense, exchangeRates: data };
   dispatch(addExpense(myExp));
 };
+
+export const deleteExpense = (id) => ({
+  type: 'DELETE_EXPENSE',
+  payload: id,
+});
