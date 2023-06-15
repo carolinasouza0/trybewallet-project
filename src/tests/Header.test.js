@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import mockData from './mockData';
-import { renderWithRouterAndRedux } from './renderWith';
-import App from '../../App';
+import mockData from './helpers/mockData';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
+import App from '../App';
 
 const VALID_EMAIL = 'alguem@email.com';
 const EMAIL_ID = 'email-input';

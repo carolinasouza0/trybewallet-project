@@ -123,6 +123,9 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   wallet: state.wallet,
+  editor: state.wallet.editor,
+  idToEdit: state.wallet.idToEdit,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
