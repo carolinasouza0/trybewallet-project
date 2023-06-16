@@ -39,3 +39,13 @@ export const deleteExpense = (id) => ({
   type: 'DELETE_EXPENSE',
   payload: id,
 });
+
+export const saveEditExpense = (expenses) => ({
+  type: 'SAVE_EDIT_EXPENSE',
+  payload: expenses,
+});
+
+export const editExpense = (idToEdit) => ({
+  type: 'EDIT_EXPENSE',
+  payload: idToEdit,
+});

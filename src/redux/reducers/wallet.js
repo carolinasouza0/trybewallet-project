@@ -26,6 +26,18 @@ const wallet = (state = initialState, action) => {
       ...state,
       expenses: action.payload,
     };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.payload,
+    };
+  case SAVE_EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
+      editor: false,
+    };
   default:
     return state;
   }

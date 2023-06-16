@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies, sendExpense } from '../redux/actions';
+import { fetchCurrencies, sendExpense, saveEditExpense } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -34,8 +34,28 @@ class WalletForm extends Component {
     });
   };
 
+  handleEdit = (event) => {
+    event.preventDefault();
+    const { expenses, idToEdit, dispatch } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const editCurrentExpense = expenses.find((expense) => expense.id === idToEdit);
+    const editedCurrent = {
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      id: idToEdit,
+      exchangeRates: editCurrentExpense.exchangeRates,
+    };
+    const deleteExpense = expenses.filter((expense) => expense.id !== idToEdit);
+    dispatch(saveEditExpense(deleteExpense));
+    const newExpenses = [...deleteExpense, editedCurrent];
+    dispatch(saveEditExpense(newExpenses.sort((a, b) => a.id - b.id)));
+  };
+
   render() {
-    const { wallet } = this.props;
+    const { wallet, editor } = this.props;
     const { currencies } = wallet;
     const { value, description, currency, method, tag } = this.state;
     return (
@@ -109,9 +129,9 @@ class WalletForm extends Component {
           </label>
           <button
             type="button"
-            onClick={ this.handleSubmit }
+            onClick={ editor ? this.handleEdit : this.handleSubmit }
           >
-            Adicionar despesa
+            { editor ? 'Editar despesa' : 'Adicionar despesa' }
 
           </button>
 
@@ -131,6 +151,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchGetCurrencies: () => dispatch(fetchCurrencies()),
   dispatchAddExpense: (expense, wallet) => dispatch(sendExpense(expense, wallet)),
+  dispatch,
 });
 
 WalletForm.propTypes = {
@@ -139,6 +160,19 @@ WalletForm.propTypes = {
   }).isRequired,
   dispatchGetCurrencies: PropTypes.func.isRequired,
   dispatchAddExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      value: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+      method: PropTypes.string.isRequired,
+      tag: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  idToEdit: PropTypes.number.isRequired,
+  editor: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
