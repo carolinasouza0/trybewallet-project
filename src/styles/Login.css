@@ -5,8 +5,13 @@
 
 }
 
+
 .login-container {
   align-items: center;
+  background: #2fc18c;
+  background-image: url('../assets/foto\ fundo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   height: 100vh;

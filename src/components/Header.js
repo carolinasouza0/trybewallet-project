@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../styles/Header.css';
+import logo from '../assets/logo.png';
+import moedas from '../assets/Moedas.png';
+import emailPic from '../assets/email-pic.png';
 
 class Header extends Component {
   conversionValue = (expense) => {
@@ -23,20 +27,40 @@ class Header extends Component {
     const { user } = this.props;
     const { email } = user;
     return (
-      <div>
-        <header>
-          <div className="email-container">
-            <p data-testid="email-field">{ email }</p>
-          </div>
+      <div
+        className="header-container"
+      >
+        <header
+          className="header"
+        >
+          <img src={ logo } alt="logo" className="logo" />
           <div className="expenses-container">
-            <span>Despesa Total: R$</span>
+            <img src={ moedas } alt="moedas" className="moedas" />
+            <span
+              className="expenses-text"
+            >
+              Total de despesas:
+
+            </span>
             <span
               data-testid="total-field"
+              className="expenses-total"
             >
               {`${this.totalExpenses()}`}
+              <span
+                data-testid="header-currency-field"
+                className="currency-header"
+              >
+                BRL
+
+              </span>
             </span>
-            <span data-testid="header-currency-field">BRL</span>
           </div>
+          <div className="email-container">
+            <img src={ emailPic } alt="email" className="email-pic" />
+            <p data-testid="email-field">{ email }</p>
+          </div>
+
         </header>
       </div>
     );

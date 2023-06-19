@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteExpense, editExpense } from '../redux/actions';
+import '../styles/Table.css';
 
 class Table extends Component {
   handleDelete = (id) => {
@@ -18,19 +19,68 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <div>
-        <table>
+      <div
+        className="table-container"
+      >
+        <table
+          className="table"
+        >
           <thead>
             <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
+              <th
+                className="description-table"
+              >
+                Descrição
+
+              </th>
+              <th
+                className="tag-table"
+              >
+                Tag
+
+              </th>
+              <th
+                className="method-table"
+              >
+                Método de pagamento
+
+              </th>
+              <th
+                className="value-table"
+              >
+                Valor
+
+              </th>
+              <th
+                className="coin-table"
+              >
+                Moeda
+
+              </th>
+              <th
+                className="currency-table"
+              >
+                Câmbio utilizado
+
+              </th>
+              <th
+                className="converted-value-table"
+              >
+                Valor convertido
+
+              </th>
+              <th
+                className="currency-conversion-table"
+              >
+                Moeda de conversão
+
+              </th>
+              <th
+                className="edit-delete-table"
+              >
+                Editar/Excluir
+
+              </th>
             </tr>
           </thead>
           { expenses.map((expense) => (

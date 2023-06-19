@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo {
+  margin-top: 40px;
+}
+
+.expenses-container {
+  align-items: center;
+  display: flex;
+}
+
+.expenses-text {
+  color: #003be5;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.currency-header {
+  color: #003be5;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 14px;
+  margin-left: 5px;
+}
+
+.expenses-total {
+  color: #003be5;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 14px;
+  margin-left: 5px;
+}
+
+.email-container {
+  align-items: center;
+  color: #2fc18c;
+  display: flex;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.email-pic {
+  margin-right: 5px;
+}
