@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteExpense, editExpense } from '../redux/actions';
 import '../styles/Table.css';
+import edit from '../assets/edit.png';
+import trash from '../assets/delete.png';
 
 class Table extends Component {
   handleDelete = (id) => {
@@ -28,56 +30,40 @@ class Table extends Component {
           <thead>
             <tr>
               <th
-                className="description-table"
+                className="description-th"
               >
                 Descrição
 
               </th>
-              <th
-                className="tag-table"
-              >
+              <th>
                 Tag
 
               </th>
-              <th
-                className="method-table"
-              >
+              <th>
                 Método de pagamento
 
               </th>
-              <th
-                className="value-table"
-              >
+              <th>
                 Valor
 
               </th>
-              <th
-                className="coin-table"
-              >
+              <th>
                 Moeda
 
               </th>
-              <th
-                className="currency-table"
-              >
+              <th>
                 Câmbio utilizado
 
               </th>
-              <th
-                className="converted-value-table"
-              >
+              <th>
                 Valor convertido
 
               </th>
-              <th
-                className="currency-conversion-table"
-              >
+              <th>
                 Moeda de conversão
 
               </th>
-              <th
-                className="edit-delete-table"
-              >
+              <th>
                 Editar/Excluir
 
               </th>
@@ -105,14 +91,14 @@ class Table extends Component {
                     data-testid="edit-btn"
                     onClick={ () => this.handleEdit(expense.id) }
                   >
-                    Editar
+                    <img src={ edit } alt="edit" />
                   </button>
                   <button
                     type="button"
                     data-testid="delete-btn"
                     onClick={ () => this.handleDelete(expense.id) }
                   >
-                    Excluir
+                    <img src={ trash } alt="delete" />
 
                   </button>
                 </td>

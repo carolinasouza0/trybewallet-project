@@ -10,7 +10,7 @@
   border-radius: 10px;
   box-shadow: -4px 9px 13px rgba(3, 107, 82, 0.3);
   display: flex;
-  height: 600px;
+  height: 700px;
   justify-content: center;
   left: 63px;
   position: absolute;
@@ -20,27 +20,68 @@
 
 .table {
   align-items: center;
-  border: 2px red solid;
-  border-radius: 0;
   display: flex;
-  flex-wrap: wrap;
-  height: 134px;
-  justify-content: space-around;
-  padding: 0 40px;
+  flex-direction: column;
   position: absolute;
-  top: 340px;
-  width: 1037px;
+  top: 55%;
+  width: 90%;
 }
 
-.description-table {
-  align-items: center;
+thead {
   color: white;
   display: flex;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 13px;
-  margin-right: 20px;
-  text-align: center;
+  height: 50px;
+  justify-content: center;
+  width: 100%;
 }
 
+tbody {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+th {
+  align-items: center;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+td {
+  align-items: center;
+  border-top: 1px solid #2fc18c;
+  color: #2fc18c;
+  display: flex;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 20px;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.description-th {
+  border-left: none;
+}
+
+button {
+  background: #003be5;
+  border: none;
+  margin: 5px;
+}
