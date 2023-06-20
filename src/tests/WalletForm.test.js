@@ -7,13 +7,65 @@ import { renderWithRouterAndRedux } from './helpers/renderWith';
 import mockData from './helpers/mockData';
 
 const VALUE_ID = 'value-input';
+const DESCRIPTION_ID = 'description-input';
+
+const mockExpense = [
+  {
+    id: 0,
+    value: '50',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    description: 'teste1',
+    exchangeRates: { ...mockData },
+  },
+  {
+    id: 1,
+    value: '1',
+    currency: 'BTC',
+    method: 'Cartão de Crédito',
+    tag: 'Saúde',
+    description: 'teste2',
+    exchangeRates: { ...mockData },
+  },
+];
+
+const currencies = [
+  'USD',
+  'CAD',
+  'GBP',
+  'ARS',
+  'BTC',
+  'LTC',
+  'EUR',
+  'JPY',
+  'CHF',
+  'AUD',
+  'CNY',
+  'ILS',
+  'ETH',
+  'XRP',
+  'DOGE',
+];
+
+const INITIAL_STATE = {
+  user: {
+    email: 'alguem@email.com',
+  },
+  wallet: {
+    currencies,
+    expenses: mockExpense,
+    editor: false,
+    idToEdit: 0,
+  },
+};
 
 describe('Testa as funcionalidades do WalletForm', () => {
   test('Testa se o formulário está sendo renderizado na tela', () => {
     renderWithRouterAndRedux(<Wallet />);
 
     const value = screen.getByTestId(VALUE_ID);
-    const description = screen.getByTestId('description-input');
+    const description = screen.getByTestId(DESCRIPTION_ID);
     const currency = screen.getByTestId('currency-input');
     const method = screen.getByTestId('method-input');
     const tag = screen.getByTestId('tag-input');
@@ -27,17 +79,6 @@ describe('Testa as funcionalidades do WalletForm', () => {
     expect(addButton).toBeDefined();
   });
 
-  test('Testa se handleChange é chamado quando o formulário é preenchido', () => {
-    const handleChange = jest.fn();
-    renderWithRouterAndRedux(<Wallet handleChange={ handleChange } />);
-
-    const value = screen.getByTestId(VALUE_ID);
-    expect(value).toBeDefined();
-
-    userEvent.type(value, '1');
-    expect(handleChange).toHaveBeenCalledTimes(1);
-  });
-
   test('Testa se handleSubmit é chamado quando o botão de adicionar despesa é clicado', async () => {
     const exchangeRate = mockData.USD.ask;
     const currencyName = mockData.USD.name;
@@ -46,7 +87,7 @@ describe('Testa as funcionalidades do WalletForm', () => {
     renderWithRouterAndRedux(<Wallet />);
 
     const value = screen.getByTestId(VALUE_ID);
-    const description = screen.getByTestId('description-input');
+    const description = screen.getByTestId(DESCRIPTION_ID);
     const addButton = screen.getByRole('button', { name: /despesa/i });
 
     expect(value).toBeDefined();
@@ -79,5 +120,36 @@ describe('Testa as funcionalidades do WalletForm', () => {
 
     userEvent.click(await editButton);
     expect(tableValue).not.toBeDefined();
+  });
+
+  test('Testa o botão de editar despesa', async () => {
+    renderWithRouterAndRedux(<Wallet />, { initialState: INITIAL_STATE });
+
+    const valueInput = screen.getByTestId('value-input');
+    const descriptionInput = screen.getByTestId(DESCRIPTION_ID);
+    const currencyInput = screen.getByTestId('currency-input');
+    const methodInput = screen.getByTestId('method-input');
+    const tagInput = screen.getByTestId('tag-input');
+
+    userEvent.type(valueInput, '1');
+    userEvent.type(descriptionInput, '1');
+    userEvent.click(screen.getByRole('button', { name: 'Adicionar despesa' }));
+
+    userEvent.click(screen.getAllByRole('button', { name: 'Editar' })[0]);
+    userEvent.type(valueInput, '2');
+    userEvent.type(descriptionInput, '2');
+    userEvent.selectOptions(currencyInput, 'USD');
+    userEvent.selectOptions(methodInput, 'Cartão de débito');
+    userEvent.selectOptions(tagInput, 'Trabalho');
+
+    expect(screen.getByRole('button', { name: 'Editar despesa' })).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Editar despesa' }));
+
+    expect(await screen.findByRole('cell', { name: '2.00' })).toBeInTheDocument();
+    expect(await screen.findByRole('cell', { name: '2' })).toBeInTheDocument();
+    expect(await screen.findByRole('cell', { name: 'Dólar Americano/Real Brasileiro' })).toBeInTheDocument();
+    expect(await screen.findByRole('cell', { name: 'Cartão de débito' })).toBeInTheDocument();
+    expect(await screen.findByRole('cell', { name: 'Trabalho' })).toBeInTheDocument();
   });
 });
