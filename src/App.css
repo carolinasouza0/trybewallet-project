@@ -1,12 +1,2 @@
-@media screen and ( max-width : 768px ) {
-
-  .wallet-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
 /* ler documentação sobre media query e deixar site responsivo para o maior numero
 de telas possíveiss */

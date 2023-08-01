@@ -21,7 +21,7 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <div
+      <section
         className="table-container"
       >
         <table
@@ -107,7 +107,7 @@ class Table extends Component {
           ))}
         </table>
 
-      </div>
+      </section>
     );
   }
 }

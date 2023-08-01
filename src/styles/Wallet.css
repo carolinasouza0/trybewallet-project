@@ -10,5 +10,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  width: auto;
+  width: 100vw;
+}
+
+@media screen and ( max-width : 768px ) {
+
+  .wallet-container {
+    display: flex;
+    justify-content: center;
+  }
 }

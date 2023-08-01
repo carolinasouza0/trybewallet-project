@@ -119,3 +119,11 @@
   width: 91px;
 
 }
+
+@media screen and ( max-width : 768px ) {
+
+  .wallet-form-container {
+    display: flex;
+    justify-content: center;
+  }
+}

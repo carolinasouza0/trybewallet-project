@@ -72,3 +72,27 @@
 .logo {
   margin-bottom: 25px;
 }
+
+@media screen and ( max-width : 500px ) {
+
+  .login-form {
+    width: 90%;
+  }
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+  }
+
+  .email-input , .password-input , .login-button {
+    width: fit-content;
+  }
+
+  .login-button {
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+
+}
